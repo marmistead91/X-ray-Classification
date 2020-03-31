@@ -132,4 +132,4 @@ dmypy.json
 *.csv
 
 # large dataset of xray images
-*/chest_xray/
+chest_xray/**
