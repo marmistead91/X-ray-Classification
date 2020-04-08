@@ -3,9 +3,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import itertools
+import PIL
+from PIL import Image
 
 def image_counter(file):
     return len(glob.glob1(file, "*.jpeg"))
+
+def height_width(file):
+    x = glob.glob1(file, "*.jpeg")
+    width = []
+    height = []
+    for img in x:
+        image = PIL.Image.open(file+img)
+        w, h = image.size
+        width.append(w)
+        height.append(h)
+    wseries = pd.Series(width)
+    hseries = pd.Series(height)
+    return pd.concat([wseries, hseries], axis=1)
 
 def images_to_df(filenorm, filesick):
     # Get the list of all the images
