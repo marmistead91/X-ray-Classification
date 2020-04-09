@@ -99,3 +99,12 @@ def visualize_training_results(results):
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.show()
+
+def pre_cm(predict):
+    roundpredict = predict.round()
+    z = np.zeros((624, 1), dtype='float32')
+    x = np.append(roundpredict, z, axis=1)
+    for i, element in enumerate(x):
+        if element[0] == 0:
+            element = [0, 1]
+    return element
