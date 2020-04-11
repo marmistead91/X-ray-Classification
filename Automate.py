@@ -5,6 +5,10 @@ import numpy as np
 import itertools
 import PIL
 from PIL import Image
+import math
+from keras.preprocessing import image
+from keras.applications.vgg19 import preprocess_input
+from keras import models, layers
 
 def image_counter(file):
     return len(glob.glob1(file, "*.jpeg"))
@@ -98,4 +102,62 @@ def visualize_training_results(results):
     plt.title('Accuracy')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
+    plt.show()
+
+def extracting_features_map(img_path, model):
+    img = image.load_img(img_path, target_size=(128, 128))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x)
+
+    # Extract model layer outputs
+    layer_outputs = [layer.output for layer in model.layers[:8]]
+
+    # Create a model for displaying the feature maps
+    activation_model = models.Model(inputs=model.input, outputs=layer_outputs)
+
+    activations = activation_model.predict(x)
+
+    # Extract Layer Names for Labelling
+    layer_names = []
+    for layer in model.layers[:8]:
+        layer_names.append(layer.name)
+
+    total_features = sum([a.shape[-1] for a in activations])
+    total_features
+
+    n_cols = 16
+    n_rows = math.ceil(total_features / n_cols)
+
+    iteration = 0
+    fig, axes = plt.subplots(nrows=n_rows, ncols=n_cols, figsize=(n_cols, n_rows * 1.5))
+
+    for layer_n, layer_activation in enumerate(activations):
+        n_channels = layer_activation.shape[-1]
+        for ch_idx in range(n_channels):
+            row = iteration // n_cols
+            column = iteration % n_cols
+
+            ax = axes[row, column]
+
+            channel_image = layer_activation[0,
+                            :,
+                            :,
+                            ch_idx]
+            # Post-process the feature to make it visually palatable
+            channel_image -= channel_image.mean()
+            channel_image /= channel_image.std()
+            channel_image *= 64
+            channel_image += 128
+            channel_image = np.clip(channel_image, 0, 255).astype('uint8')
+
+            ax.imshow(channel_image, aspect='auto', cmap='viridis')
+            ax.get_xaxis().set_ticks([])
+            ax.get_yaxis().set_ticks([])
+
+            if ch_idx == 0:
+                ax.set_title(layer_names[layer_n], fontsize=10)
+            iteration += 1
+
+    fig.subplots_adjust(hspace=1.25)
     plt.show()
