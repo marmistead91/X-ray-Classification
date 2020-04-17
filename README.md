@@ -2,7 +2,7 @@
 
 ## Background
 
-![normal4x4.png](X-ray\ Eda\ pics/normal4x4.png)
+![](X-ray%20Eda%20pics/normal4x4.png)
 
 During the current times 
 
