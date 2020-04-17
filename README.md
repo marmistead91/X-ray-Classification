@@ -45,7 +45,7 @@ Basic model
   Precision : 0.99
   F1 : 0.6
   
-  ![](X-ray-Classification/blob/master/X-ray%20Eda%20pics/CM_bassic.png)
+  ![](X-ray%20Eda%20pics/CM_bassic.png)
   
 Basic model with Data Augmentation to images
   Accuracy : 87.18%
@@ -53,7 +53,7 @@ Basic model with Data Augmentation to images
   Precision : 0.78
   F1 : 0.84
   
-  ![](X-ray-Classification/blob/master/X-ray%20Eda%20pics/CM_aug.png)
+  ![](X-ray%20Eda%20pics/CM_aug.png)
   
 Transfer Learning with Data Augmentation to images
   Accuracy : 90.71%
@@ -61,7 +61,7 @@ Transfer Learning with Data Augmentation to images
   Precision : 0.97
   F1 : 0.86
   
-  ![](X-ray-Classification/blob/master/X-ray%20Eda%20pics/CM_tl.png)
+  ![](X-ray%20Eda%20pics/CM_tl.png)
   
 ## Insight and Analysis
 
