@@ -133,3 +133,4 @@ dmypy.json
 
 # large dataset of xray images
 chest_xray/**
+*.idea
